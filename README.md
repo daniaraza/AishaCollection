@@ -6,3 +6,4 @@ Prerequisites for successfully running the project:
     Server
     MySQL
     PIP
+Add to cart will only work for logged in Users.
