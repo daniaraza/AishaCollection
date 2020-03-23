@@ -1,0 +1,67 @@
+<!-- <!-- {% load static %} -->
+<!DOCTYPE html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    body {
+      font-family: "Lato", sans-serif;
+      font-size: 20px;
+      padding: 100px 0px 0px 380px;
+      text-align: center;
+    }
+  </style>
+</head>
+{% load static %}
+<script src="{% static 'bride/jquery-3.4.1.js' %}"></script>
+<script>
+  function loadFunction() {
+    var data = JSON.parse(localStorage.getItem('data'));
+    // localStorage.removeItem('data');
+    $("#picture").attr("src", "/media/" + data[0].fields.picture);
+    $("#name").html(data[0].fields.name);
+    $("#brand").html(data[0].fields.brand);
+    $("#size").html(data[0].fields.size);
+    $("#price").html(data[0].fields.price);
+
+    $("#id_product_id").val(data[0].pk)
+  }
+
+
+</script>
+
+
+<body onload="loadFunction()">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3"><img class="card-img-top" src="" id="picture"></div>
+      <div class="col-sm-3">
+        <p class="card-title" id="name"></p>
+        <h5 class="card-title" id="brand"></h5>
+        <p class="card-text" id="size"></p>
+        <p class="card-text" id="price"></p>
+        {% block content %}
+    <form method='POST'>
+      {% csrf_token %}
+      {% for field in addcart_form %}
+      <div hidden>{{ field }}</div>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary">Add to Cart</button>
+    </form>
+    
+  {% endblock %}
+        <!-- <a class="btn btn-primary">Add to Cart</a> -->
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+</body>
+
+</html>

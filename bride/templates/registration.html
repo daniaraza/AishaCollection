@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login/Register</title>
+  <meta charset="utf-8">
+</head>
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{% block body_block %}
+  <div class="container">
+    <div class="jumbotron">
+      {% if registered %}
+        <h1>Thank you for registering!</h1>
+      {% else %}
+        <h1>Register Here</h1>
+        <div class= "reg-form">
+        <h3>Just fill out the form:</h3>
+<form enctype="multipart/form-data" method="POST">
+          {% csrf_token %}
+          {{ user_form.as_p }}
+          <input type="submit" name="" value="Register">
+        </form></div>
+        
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+</body>
+
+</html>

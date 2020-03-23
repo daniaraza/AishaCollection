@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+body {
+  font-family: "Lato", sans-serif;
+  right: 0;
+}
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x:hidden;
+  padding-top: 5px;
+}
+
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 200px; 
+  font-size: 20px; 
+  padding: 0px 10px;
+}
+
+.active {
+  background-color:sandybrown;
+  color: white;
+}
+
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+.fa-caret-down {
+  float: right;
+}
+
+.brand{
+  font-family:"Montserrat", sans-serif;
+  letter-spacing: 4px;
+  padding: 6px 6px 6px 22px;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.card{
+  float: left;
+  width: 33.33%;
+  padding: 0px 0px 10px 198px;
+  margin: -5px;
+  text-align: center;
+  display: inline-table;
+}
+
+*{box-sizing: border-box;}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+{% load static %}
+<script src="{% static 'bride/jquery-3.4.1.js' %}"></script>
+<script>
+  function myFunction(id){
+    $.ajax({
+        url: '/products/details/',
+        data: {
+          'productName': id
+        },
+        dataType: 'json',
+        success: function (ward) {
+          localStorage.setItem('data', ward);
+          window.location.href="showdetails";
+        }
+      });
+  }    
+</script>
+<body>
+  <div class="sidenav">
+    <div class= "brand">
+      <p><a href= "/">Alisha Collection </a></p>
+  </div>
+    <button class="dropdown-btn">Brands 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+      <a href="ss">Sabyasachi</a>
+      <a href="manish">Manish Malhotra</a>
+      <a href="ritu">Ritu Kumar</a>
+    </div>
+    <button class="dropdown-btn">Categories 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+      <a href="saree">Saree</a>
+      <a href="men">Men</a>
+      <a href="accessories">Accessories</a>
+    </div>
+    <button class="dropdown-btn">Price 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+      <a href="price?lowerVal=0&upperVal=60000"> < Rs 60,000</a>
+      <a href="price?lowerVal=60000&upperVal=100000">Rs 60,000-Rs 100,000</a>
+      <a href="price?lowerVal=100000&upperVal=150000">Rs 100,000-Rs 150,000</a>
+      <a href="price?lowerVal=150000&upperVal=200000">Rs 150,000-Rs 200,000</a>
+      <a href="price?lowerVal=200000&upperVal=300000">Rs 200,000-Rs 300,000</a>
+      <a href="price?lowerVal=300000&upperVal=100000000"> > Rs 300,000</a>
+    </div>
+  </div>
+
+  <script>
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var i;
+  
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var dropdownContent = this.nextElementSibling;
+    if (dropdownContent.style.display === "block") {
+    dropdownContent.style.display = "none";
+    } else {
+    dropdownContent.style.display = "block";
+    }
+    });
+  }
+  </script>
+
+
+
+{% block content %}
+<div class="card-columns">
+  {% for bride in ward %}
+  <div class="card" style="width: 18rem;">
+    <div class="aboutproduct" id="{{ bride.name }}" onclick="myFunction(id)">
+      <img class="card-img-top" src="{{ bride.picture.url }}" >
+      <p class="card-title">{{ bride.name }} </p> </a></div>
+        
+    <div class="card-body">
+      <h5 class="card-title">{{ bride.brand }}</h5>
+      <p class="card-text">{{ bride.size }}</p>
+      <p class="card-text">Rs {{ bride.price }}</p>
+    </div>
+</div>
+</div>
+  {% endfor %}
+</div>
+{% endblock %}
+</body>
+</html> 

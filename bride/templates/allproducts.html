@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<head></head>
+<body>
+{% block content %}
+<div class="card-columns">
+  {% for bride in shelf %}
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{ bride.picture.url }}">
+    <div class="card-body">
+      <h5 class="card-title">{{ bride.name }}</h5>
+      <h5 class="card-title">{{ bride.brand }}</h5>
+      <p class="card-text">{{ bride.size }}</p>
+      <p class="card-text">{{ bride.price }}</p>
+      <p class="card-text">{{ bride.describe }}</p>
+ <center>
+     <a href="update/{{bride.id}}" class="btn btn-warning" id = '{{bride.id}}'>Modify</a>
+     <a href="delete/{{bride.id}}" class="btn btn-danger" id = '{{bride.id}}'>Delete</a>
+  </center>
+  </div>
+</div>
+</div>
+  {% endfor %}
+</div>
+{% endblock %}
+</body>
+</html>
+

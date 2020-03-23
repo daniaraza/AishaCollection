@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Login/Register</title>
+  <meta charset="utf-8">
+  <style>
+    h2 {
+      color:saddlebrown;
+      font-weight: bold;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      font-size: 30px;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      width: 80%;
+      margin-top: 0px;
+      text-align: center;
+      }
+</style>
+
+</head>
+<body>
+
+{% extends "base.html" %}
+{% block body_block %}
+<div class="bg-image"></div>
+      <div class="container">
+        <div class="jumbotron">
+          <h1>Welcome to the Alisha Collection !</h1>
+          {% if user.is_authenticated %}
+          <h2>Hello {{ user.username }}</h2>
+          {% else %}
+          {% endif %}
+        </div>
+      </div>
+    {% endblock %}
+    </body>
+</html>
